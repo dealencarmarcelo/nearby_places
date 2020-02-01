@@ -1,11 +1,13 @@
-class Api::V1::ListPlaces
+class Api::V1::MapPlaces
     attr_reader :errors, :response
 
-    def initialize()
+    def initialize(latitude, longitude)
+        @latitude = latitude
+        @longitude = longitude
         @response = []
     end
 
-    def prepare_list
+    def prepare_map
         @response = query
 
         @response
@@ -18,7 +20,7 @@ class Api::V1::ListPlaces
 
     def query
         Place.joins(:user)
-             .order(name: :asc)
+             .near([@latitude, @longitude], 100)
              .select("places.*, users.name AS created_by"
              ).as_json
     end

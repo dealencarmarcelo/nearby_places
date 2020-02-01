@@ -1,6 +1,14 @@
-class Place < ApplicationRecord
-    validates :cnpj, :name, presence: true, uniqueness: true
-    validates :city, :state_code, :country, :latitude, :longitude, presence: true
+class Place < ActiveRecord::Base
+    geocoded_by :place_address
+    after_validation :geocode
 
-    has_many :comments, as: :commentable
+    validates :cnpj, :name, presence: true, uniqueness: true
+    validates :city, :state_code, :country, :address, presence: true
+
+    belongs_to :user
+    has_many :ratings
+
+    def place_address
+        [address, city, state_code, country].compact.join(', ')
+    end
 end

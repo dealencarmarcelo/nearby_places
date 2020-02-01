@@ -10,22 +10,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20200201080402) do
+ActiveRecord::Schema.define(version: 20200201152857) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
-
-  create_table "comments", force: :cascade do |t|
-    t.bigint "user_id", null: false
-    t.string "commentable_type"
-    t.bigint "commentable_id"
-    t.string "content"
-    t.datetime "deleted_at"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["commentable_type", "commentable_id"], name: "index_comments_on_commentable_type_and_commentable_id"
-    t.index ["user_id"], name: "index_comments_on_user_id"
-  end
 
   create_table "countries", force: :cascade do |t|
     t.string "name"
@@ -47,7 +35,21 @@ ActiveRecord::Schema.define(version: 20200201080402) do
     t.datetime "deleted_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.float "rating_avg"
+    t.float "total_rating", default: 0.0
     t.index ["user_id"], name: "index_places_on_user_id"
+  end
+
+  create_table "ratings", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "place_id", null: false
+    t.string "comment"
+    t.float "score"
+    t.datetime "deleted_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["place_id"], name: "index_ratings_on_place_id"
+    t.index ["user_id"], name: "index_ratings_on_user_id"
   end
 
   create_table "states", force: :cascade do |t|
@@ -70,7 +72,8 @@ ActiveRecord::Schema.define(version: 20200201080402) do
     t.datetime "updated_at", null: false
   end
 
-  add_foreign_key "comments", "users"
   add_foreign_key "places", "users"
+  add_foreign_key "ratings", "places"
+  add_foreign_key "ratings", "users"
   add_foreign_key "states", "countries"
 end

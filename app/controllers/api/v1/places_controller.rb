@@ -9,7 +9,8 @@ class Api::V1::PlacesController < ApplicationController
         @response = Api::V1::ListPlaces.new()
         @response.prepare_list
       when 'map'
-
+        @response = Api::V1::MapPlaces.new(params[:latitude], params[:longitude])
+        @response.prepare_map
       end
 
       respond

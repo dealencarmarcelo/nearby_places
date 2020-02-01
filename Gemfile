@@ -23,6 +23,8 @@ gem 'acts_as_paranoid', '~> 0.6.0'
 gem 'jwt'
 gem 'simple_command'
 
+gem 'geocoder'
+
 group :development, :test do
   gem 'rspec-rails'
   gem 'faker'
