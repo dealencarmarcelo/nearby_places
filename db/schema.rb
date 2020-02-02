@@ -10,17 +10,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20200201152857) do
+ActiveRecord::Schema.define(version: 20200202001400) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
-
-  create_table "countries", force: :cascade do |t|
-    t.string "name"
-    t.datetime "deleted_at"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
 
   create_table "places", force: :cascade do |t|
     t.bigint "user_id", null: false
@@ -52,17 +45,6 @@ ActiveRecord::Schema.define(version: 20200201152857) do
     t.index ["user_id"], name: "index_ratings_on_user_id"
   end
 
-  create_table "states", force: :cascade do |t|
-    t.string "name"
-    t.string "initials"
-    t.string "region"
-    t.bigint "country_id", null: false
-    t.datetime "deleted_at"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["country_id"], name: "index_states_on_country_id"
-  end
-
   create_table "users", force: :cascade do |t|
     t.string "name"
     t.string "email"
@@ -72,8 +54,16 @@ ActiveRecord::Schema.define(version: 20200201152857) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "validate_jwt_tokens", force: :cascade do |t|
+    t.string "token"
+    t.boolean "actived"
+    t.datetime "validation"
+    t.datetime "expiration"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   add_foreign_key "places", "users"
   add_foreign_key "ratings", "places"
   add_foreign_key "ratings", "users"
-  add_foreign_key "states", "countries"
 end

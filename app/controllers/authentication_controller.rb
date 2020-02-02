@@ -1,5 +1,5 @@
 class AuthenticationController < ApplicationController
-  before_action :authorize_request, except: :login
+  before_action :authorize_request, except: [:login, :logout]
 
   def login
     access = AuthenticateAccess.call(params[:email], params[:password])
@@ -12,7 +12,16 @@ class AuthenticationController < ApplicationController
                      exp: time.strftime("%m-%d-%Y %H:%M") },
                      status: :ok
     else
-      render json: { error: token.errors }, status: :unauthorized
+      render json: { error: access.errors }, status: :unauthorized
+    end
+  end
+
+  def logout
+    revoke = ValidateJwtToken.find_or_create_by(token: request.headers['Authorization'])
+    if revoke
+      render json: { message: 'Logout sucessfull!' }, status: :ok
+    else
+      render json: { error: 'Invalid credentials!' }, status: :unauthorized
     end
   end
 
