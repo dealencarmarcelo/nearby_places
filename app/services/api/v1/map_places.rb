@@ -20,7 +20,7 @@ class Api::V1::MapPlaces
 
     def query
         Place.joins(:user)
-             .near([@latitude, @longitude], 100)
+             .near([@latitude, @longitude], 1000)
              .select("places.*, users.name AS created_by"
              ).as_json
     end
