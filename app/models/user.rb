@@ -10,5 +10,11 @@ class User < ApplicationRecord
                          if: :password
 
     has_many :places
+    has_many :ratings
+
+    def self.return_data(user_id)
+        User.where(id: user_id)
+            .select(:name, :email)
+    end
 end
   

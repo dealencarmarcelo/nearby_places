@@ -9,7 +9,12 @@ class UsersController < ApplicationController
   end
 
   def show
-    render json: @user, status: :ok
+    user = User.return_data(params[:id])
+    if user
+      render json: user, status: :ok
+    else
+      render json: { errors: 'User not found' }, status: 403
+    end
   end
   
   def create
