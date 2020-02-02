@@ -17,7 +17,7 @@ class Profile
     private
 
     def query
-        User.joins(:ratings, :places)
+        User.left_joins(:ratings, :places)
             .group("users.name, users.email, users.created_at")
             .select("users.name, users.email, users.created_at, 
                      COUNT(places.*) AS created_places, 
