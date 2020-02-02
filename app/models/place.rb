@@ -2,7 +2,8 @@ class Place < ActiveRecord::Base
     geocoded_by :place_address
     after_validation :geocode
 
-    validates :cnpj, :name, presence: true, uniqueness: true
+    validates :cnpj, length: { minimum: 14 }, presence: true, uniqueness: true
+    validates :name, presence: true, uniqueness: true
     validates :city, :state_code, :country, :address, presence: true
 
     belongs_to :user

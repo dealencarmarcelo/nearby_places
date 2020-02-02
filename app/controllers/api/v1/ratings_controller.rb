@@ -1,10 +1,9 @@
 class Api::V1::RatingsController < ApplicationController
     before_action :authorize_request
     before_action :find_rating, only: [:create, :index]
-    # before_action :find_rating, only: [:show, :delete]
 
     def index
-        @ratings = Rating.return_data(params[:place_id])
+        @ratings = Rating.where(place_id: params[:place_id]).return_data
         render json: @ratings, status: :ok
     end
     
@@ -25,9 +24,8 @@ class Api::V1::RatingsController < ApplicationController
     end
 
     def show
-        p "aqui"
-        @ratings = Rating.includes(:user).where(id: params[:id])
-        @ratings
+        @ratings = Rating.where("ratings.id = (?)", params[:id]).return_data
+        render json: @ratings, status: :ok
     end
 
     def destroy
