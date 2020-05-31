@@ -21,7 +21,7 @@ API REST that shows the user's closest locations.
 
 - The authenticated user can also view his profile, change e-mail, change password and log out.
 
-# Comments
+### Comments
 
 - JWT Logout using blacklist to disable current token.
 
