@@ -1,24 +1,28 @@
-# README
+# Nearby Places
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+API REST that shows the user's closest locations.
 
-Things you may want to cover:
+## Using: 
+- Ruby version 2.6.3 with Rails 5.1.7
+- PostgreSQL
+- JWT Authentication
 
-* Ruby version
+## Main Features
 
-* System dependencies
+- The user of the application will be able to register a new account or enter an account already existing using email and password.
 
-* Configuration
+- The authenticated user can register a new location.
 
-* Database creation
+- The authenticated user will be able to view the locations already registered by him and others users in map and list format
 
-* Database initialization
+- The authenticated user will be able to evaluate a place, with rating and comment.
 
-* How to run the test suite
+- The authenticated user will be able to view the evaluations of a location.
 
-* Services (job queues, cache servers, search engines, etc.)
+- The authenticated user can also view his profile, change e-mail, change password and log out.
 
-* Deployment instructions
+# Comments
 
-* ...
+- JWT Logout using blacklist to disable current token.
+
+- Using Rails Api Only
